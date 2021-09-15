@@ -269,7 +269,11 @@ public class ValeAlimentacao extends CartaoDeBeneficio implements InterfaceCarta
         return senhaCartao;
     }
 
-    public void adicionaSaldoVA(Double valor) {this.saldoCartao += valor;}
+    public void adicionaSaldoVA(Double valor) {
+        int index = listaTransacoes.size() - 1;
+        Double saldoCartao = listaTransacoes.get(index).getValorDaTransacao();
+        saldoCartao += valor;
+    }
 
     @Override
     public boolean equals(Object obj) {

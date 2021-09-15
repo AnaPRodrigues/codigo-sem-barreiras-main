@@ -191,7 +191,7 @@ public class Ferramentas {
                     data2 = vr.getValidadeCartaoVR();
                     vr.criaDataDeValidade();
                     ValeRefeicao.listaCartoesVR.add(new ValeRefeicao(identificadorCartao, nome, senha,
-                           saldoCartao, data1, data2));
+                            saldoCartao, data1, data2));
 
                     System.out.println("\n---------------------------------------------------------------");
                     System.out.println("Cadastro realizado com sucesso!");
@@ -356,6 +356,7 @@ public class Ferramentas {
         String vale, nome;
         Double valorParaAdicionar;
         char option = 's';
+        boolean verificador = false;
 
         Scanner in = new Scanner(System.in);
 
@@ -364,9 +365,9 @@ public class Ferramentas {
             System.out.println("Menu -> Adicionar: Saldo em um cartão de benefício");
             System.out.println("==================================================================\n");
             System.out.println("Digite o código do benefício:");
-            System.out.println("\"VA\" - Vale Alimentação");
-            System.out.println("\"VR\" - Vale Refeição");
-            System.out.println("\"VC\" - Vale Combustível");
+            System.out.println("\"va\" - Vale Alimentação");
+            System.out.println("\"vr\" - Vale Refeição");
+            System.out.println("\"vc\" - Vale Combustível");
             System.out.print("Opção: ");
             vale = in.nextLine().trim();
             System.out.println("\nDigite o nome do beneficiário:");
@@ -374,40 +375,44 @@ public class Ferramentas {
             System.out.println("\nDigite o valor a ser adicionado: ");
             valorParaAdicionar = in.nextDouble();
 
-            if (vale.equals("VA")) {
+            if (vale.equals("va")) {
                 //Laço para percorrer a lista de beneficiários
-                for (int i = 0; i < ValeAlimentacao.listaCartoesVA.size() - 1; i++) {
+                for (int i = 0; i < ValeAlimentacao.listaCartoesVA.size(); i++) {
 
                     //Se encontra o beneficiário, armazena o identificador ao cartão ao beneficiário na lsita
                     if (ValeAlimentacao.listaCartoesVA.get(i).getNomeBeneficiarioVA().equals(nome) && valorParaAdicionar > 0) {
+                        verificador = true;
                         va.adicionaSaldoVA(valorParaAdicionar);
                         System.out.println("\n-----------------------------------------------------------------\n");
-                        System.out.printf("%nValor de %f adicionado com sucesso!%n", valorParaAdicionar);
+                        System.out.printf("%nValor de %d adicionado com sucesso!%n", valorParaAdicionar);
                         System.out.printf("%nAgora o saldo do Vale Alimentação de%n%s é %f!%n", nome, va.getSaldoVA());
 
                         //Retorna mensagem de erro caso não encontra o beneficiário
-                    } else {
+                    }
+
+                     if (!verificador){
                         System.out.println("-----------------------------------------------------------------");
                         System.out.println("O beneficiário não existe ou o valor é negativo!%n");
-                        System.out.println("Deseja tentar digitar outro nome?");
-                        System.out.println("Digite \"s\" para SIM e \"n\" para NÃO.");
-                        System.out.print("Opção: ");
-                        option = in.nextLine().trim().toLowerCase().charAt(0);
+
                     }
                 }
-            } else if (vale.equals("VR")) {
+                verificador = false;
+            } else if (vale.equals("vr")) {
                 //Laço para percorrer a lista de beneficiários
-                for (int i = 0; i < ValeRefeicao.listaCartoesVR.size() - 1; i++) {
+                for (int i = 0; i < ValeRefeicao.listaCartoesVR.size(); i++) {
 
                     //Se encontra o beneficiário, armazena o identificador ao cartão ao beneficiário na lsita
                     if (ValeRefeicao.listaCartoesVR.get(i).getNomeBeneficiarioVR().equals(nome) && valorParaAdicionar > 0) {
+                        verificador = true;
                         vr.adicionaSaldoVR(valorParaAdicionar);
                         System.out.println("\n-----------------------------------------------------------------\n");
-                        System.out.printf("%nValor de %f adicionado com sucesso!%n", valorParaAdicionar);
+                        System.out.printf("%nValor de %d adicionado com sucesso!%n", valorParaAdicionar);
                         System.out.printf("%nAgora o saldo do Vale Refeição de%n%s é %f!%n", nome, vr.getSaldoVR());
 
-                        //Retorna mensagem de erro caso não encontra o beneficiário
-                    } else {
+
+                    }
+                    //Retorna mensagem de erro caso não encontra o beneficiário
+                    if(!verificador) {
                         System.out.println("-----------------------------------------------------------------");
                         System.out.println("O beneficiário não existe ou o valor é negativo!%n");
                         System.out.println("Deseja tentar digitar outro nome?");
@@ -416,19 +421,24 @@ public class Ferramentas {
                         option = in.nextLine().trim().toLowerCase().charAt(0);
                     }
                 }
-            } else if (vale.equals("VC")) {
+
+                verificador = false;
+            } else if (vale.equals("vc")) {
                 //Laço para percorrer a lista de beneficiários
-                for (int i = 0; i < ValeCombustivel.listaCartoesVC.size() - 1; i++) {
+                for (int i = 0; i < ValeCombustivel.listaCartoesVC.size(); i++) {
 
                     //Se encontra o beneficiário, armazena o identificador ao cartão ao beneficiário na lsita
                     if (ValeCombustivel.listaCartoesVC.get(i).getNomeBeneficiarioVC().equals(nome) && valorParaAdicionar > 0) {
+                        verificador = true;
                         vc.adicionaSaldoVC(valorParaAdicionar);
                         System.out.println("\n-----------------------------------------------------------------\n");
-                        System.out.printf("%nValor de %f adicionado com sucesso!%n", valorParaAdicionar);
+                        System.out.printf("%nValor de %d adicionado com sucesso!%n", valorParaAdicionar);
                         System.out.printf("%nAgora o saldo do Vale Combustível de%n%s é %f!%n", nome, vc.getSaldoVC());
 
                         //Retorna mensagem de erro caso não encontra o beneficiário
-                    } else {
+                    }
+
+                     if (!verificador){
                         System.out.println("-----------------------------------------------------------------\n");
                         System.out.println("O beneficiário não existe ou o valor é negativo!");
                         System.out.println("Deseja tentar digitar outro nome?");
@@ -441,6 +451,9 @@ public class Ferramentas {
                 System.out.println("-----------------------------------------------------------------\n");
                 System.out.println("Opção inválida! Digite uma opção dentre as disponíveis!\n");
             }
+        System.out.println("Deseja tentar novamente? [s] [n]");
+        option = in.nextLine().trim().toLowerCase().charAt(0);
+
         } while (option == 's');
         Ferramentas.inicializaMenuPrincipal();
     }
@@ -457,20 +470,23 @@ public class Ferramentas {
         System.out.println("Menu -> Cadastrar: Transações de um Cartão");
         System.out.println("==================================================================\n");
         do {
-            System.out.println("Em qual cartão você gostaria de adicionar a transação? [VA] [VR] [VC]");
+            System.out.println("Em qual cartão você gostaria de adicionar a transação? [va] [vr] [vc]");
             String resposta = in.nextLine().trim();
 
-            if (resposta.equals("VA")) {
+            if (resposta.equals("va")) {
                 va.adicionarTransacao();
-            } else if (resposta.equals("VR")) {
+            } else if (resposta.equals("vr")) {
                 vr.adicionarTransacao();
-            } else if (resposta.equals("VC")) {
+            } else if (resposta.equals("vc")) {
                 vc.adicionarTransacao();
             } else {
                 System.out.println("Opção incorreta!");
-                System.out.println("Deseja tentar novamente? [s] [n]");
-                opcao = in.nextLine().trim().toLowerCase().charAt(0);
+
             }
+        System.out.println("Deseja tentar novamente? [s] [n]");
+        opcao = in.nextLine().trim().toLowerCase().charAt(0);
+
+
         } while (opcao == 's');
         Ferramentas.inicializaMenuPrincipal();
     }
@@ -485,7 +501,6 @@ public class Ferramentas {
 
         //Cria as variáveis necessárias
         String vale, nome;
-        Double valorParaAdicionar;
         char option = 's';
 
         Scanner in = new Scanner(System.in);
@@ -495,15 +510,15 @@ public class Ferramentas {
             System.out.println("Menu -> Expirar: Validade de um cartão");
             System.out.println("==================================================================\n");
             System.out.println("Digite o código do benefício:");
-            System.out.println("\"VA\" - Vale Alimentação");
-            System.out.println("\"VR\" - Vale Refeição");
-            System.out.println("\"VC\" - Vale Combustível");
+            System.out.println("\"va\" - Vale Alimentação");
+            System.out.println("\"vr\" - Vale Refeição");
+            System.out.println("\"vc\" - Vale Combustível");
             System.out.print("Opção: ");
             vale = in.nextLine().trim();
             System.out.println("\nDigite o nome do beneficiário:");
             nome = in.nextLine().trim();
 
-            if (vale.equals("VA")) {
+            if (vale.equals("va")) {
                 //Laço para percorrer a lista de beneficiários
                 for (int i = 0; i < ValeAlimentacao.listaCartoesVA.size() - 1; i++) {
 
@@ -525,7 +540,7 @@ public class Ferramentas {
                         option = in.nextLine().trim().toLowerCase().charAt(0);
                     }
                 }
-            } else if (vale.equals("VR")) {
+            } else if (vale.equals("vr")) {
                 //Laço para percorrer a lista de beneficiários
                 for (int i = 0; i < ValeRefeicao.listaCartoesVR.size() - 1; i++) {
 
@@ -547,7 +562,7 @@ public class Ferramentas {
                         option = in.nextLine().trim().toLowerCase().charAt(0);
                     }
                 }
-            } else if (vale.equals("VC")) {
+            } else if (vale.equals("vc")) {
                 //Laço para percorrer a lista de beneficiários
                 for (int i = 0; i < ValeCombustivel.listaCartoesVC.size() - 1; i++) {
 
@@ -598,7 +613,7 @@ public class Ferramentas {
             nome = in.nextLine().trim();
 
             //Laço para percorrer a lista de beneficiários
-            for (int i = 0; i < Beneficiario.listaBeneficiarios.size() - 1; i++) {
+            for (int i = 0; i < Beneficiario.listaBeneficiarios.size(); i++) {
 
                 //Se encontra o beneficiário, armazena o identificador ao cartão ao beneficiário na lsita
                 if (Beneficiario.listaBeneficiarios.get(i).getNomeBeneficiario().equals(nome)) {
@@ -621,7 +636,7 @@ public class Ferramentas {
                     //Retorna mensagem de erro caso não encontra o beneficiário
                 } else {
                     System.out.println("-----------------------------------------------------------------");
-                    System.out.printf("Não foi possível realizar o cadastro.%nBeneficiário %s não encontrado!%n", nome);
+                    System.out.printf("Não foi possível realizar a consulta. %nBeneficiário %s não encontrado!%n", nome);
                     System.out.println("Deseja digitar o nome de outro beneficiário?");
                     System.out.println("Digite \"s\" para SIM e \"n\" para NÃO.");
                     System.out.print("Opção: ");
@@ -641,7 +656,6 @@ public class Ferramentas {
 
         //Cria as variáveis necessárias
         String vale, nome;
-        Double valorParaAdicionar;
         char option = 's';
 
         Scanner in = new Scanner(System.in);
@@ -651,15 +665,15 @@ public class Ferramentas {
             System.out.println("Menu -> Menu -> Emitir: Extrato de transações");
             System.out.println("==================================================================\n");
             System.out.println("Digite o código do benefício:");
-            System.out.println("\"VA\" - Vale Alimentação");
-            System.out.println("\"VR\" - Vale Refeição");
-            System.out.println("\"VC\" - Vale Combustível");
+            System.out.println("\"va\" - Vale Alimentação");
+            System.out.println("\"vr\" - Vale Refeição");
+            System.out.println("\"vc\" - Vale Combustível");
             System.out.print("Opção: ");
             vale = in.nextLine().trim();
             System.out.println("\nDigite o nome do beneficiário:");
             nome = in.nextLine().trim();
 
-            if (vale.equals("VA")) {
+            if (vale.equals("va")) {
                 //Laço para percorrer a lista de beneficiários
                 for (int i = 0; i < ValeAlimentacao.listaCartoesVA.size() - 1; i++) {
 
@@ -697,7 +711,7 @@ public class Ferramentas {
                         option = in.nextLine().trim().toLowerCase().charAt(0);
                     }
                 }
-            } else if (vale.equals("VR")) {
+            } else if (vale.equals("vr")) {
                 //Laço para percorrer a lista de beneficiários
                 for (int i = 0; i < ValeRefeicao.listaCartoesVR.size() - 1; i++) {
 
@@ -735,7 +749,7 @@ public class Ferramentas {
                         option = in.nextLine().trim().toLowerCase().charAt(0);
                     }
                 }
-            } else if (vale.equals("VC")) {
+            } else if (vale.equals("vc")) {
                 //Laço para percorrer a lista de beneficiários
                 for (int i = 0; i < ValeCombustivel.listaCartoesVC.size() - 1; i++) {
 
@@ -743,7 +757,7 @@ public class Ferramentas {
                     if (ValeCombustivel.listaCartoesVC.get(i).getNomeBeneficiarioVC().equals(nome)) {
 
                         System.out.println("\n==================================================================");
-                        System.out.println("Vale Refeição - Extrato de transações");
+                        System.out.println("Vale Combustível - Extrato de transações");
                         System.out.println("==================================================================\n");
 
                         System.out.print("Número da transação: ");

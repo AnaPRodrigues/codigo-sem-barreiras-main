@@ -256,7 +256,11 @@ public class ValeRefeicao extends CartaoDeBeneficio implements InterfaceCartaoDe
         return senhaCartao;
     }
 
-    public void adicionaSaldoVR(Double valor) {this.saldoCartao += valor;}
+    public void adicionaSaldoVR(Double valor) {
+        int index = ValeRefeicao.listaTransacoes.size() - 1;
+        valor = ValeRefeicao.listaTransacoes.get(index).getValorDaTransacao();
+        this.saldoCartao += valor;
+    }
 
     public LocalDate getValidadeCartaoVR() {
         return validadeCartao;
