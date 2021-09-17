@@ -1,9 +1,9 @@
 package projetobeneficiocartao_final;
 
-import java.util.Scanner;
-
 public class Main {
-
+    /**
+     * Roda o programa principal.
+     */
     public static void main(String[] args) {
 
         Ferramentas.inicializaPrograma();

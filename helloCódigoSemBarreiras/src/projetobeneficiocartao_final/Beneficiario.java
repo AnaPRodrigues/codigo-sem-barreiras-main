@@ -1,8 +1,21 @@
 package projetobeneficiocartao_final;
 
+//Importa bibliotecas
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+/**
+ * Projeto Empresa de Cartão de Benefícios.- Etapa 02
+ * Trabalho em grupo - Grupo JavAlelo.
+ * Curso Java - Share RH & Alelo".
+ * Para mais detalhes, acesse o "Readme.txt" no GITHUB.
+ *
+ * @author Jonatas, Ana Paula Rodrigues,
+ * @author Antônio Carlos, Natália, Karina, Giovanna, Cristovão, Sérgio.
+ *
+ * @version 2.5
+ */
 
 public class Beneficiario {
 
@@ -36,12 +49,14 @@ public class Beneficiario {
 
     public static void cadastrarBeneficiario() {
 
+        //Instancia a classe Scanner para receber entrada de dados do usuário
         Scanner in = new Scanner(System.in);
 
+        //Cria as variáveis
         String nomeBeneficiario1;
-
         char opcao = 's';
 
+        //Recebe os dados do usuário e realiza o cadastro do beneficiário
         do {
             Ferramentas.imprimeLinhaDupla();
             System.out.println("= Cadastro inicial de beneficiário                               =");
@@ -51,14 +66,13 @@ public class Beneficiario {
             nomeBeneficiario1 = in.nextLine().trim();
             Ferramentas.imprimeEspacador();
 
-
             boolean verificador = false;
 
             //Laço para percorrer a lista de beneficiários
             for (int i = 0; i < Beneficiario.listaBeneficiarios.size(); i++) {
 
                 //Se o beneficiário já existe na lista, retorna erro
-                if (Beneficiario.listaBeneficiarios.get(i).getNomeBeneficiario().equals(nomeBeneficiario1)) {
+                if (Beneficiario.listaBeneficiarios.get(i).nomeBeneficiario.equals(nomeBeneficiario1)) {
                     Ferramentas.imprimeLinha();
                     System.out.println("- Já existe um beneficiário cadastrado com esse nome!            -");
                     System.out.println("- Não é possível cadastrar dois nomes iguais!                    -");
@@ -66,6 +80,7 @@ public class Beneficiario {
                 }
             }
 
+            //Se o beneficiário não é repetido, realiza o cadastro
             if (!verificador) {
                 listaBeneficiarios.add(new Beneficiario(incrementoIdentificadorBeneficiario++,
                         nomeBeneficiario1));
@@ -75,6 +90,7 @@ public class Beneficiario {
                 Ferramentas.imprimeLinha();
             }
 
+            //
             Ferramentas.imprimeEspacador();
             Ferramentas.imprimeLinha();
             System.out.println("- Deseja cadastrar outro beneficiário?                           -");
@@ -92,10 +108,13 @@ public class Beneficiario {
 
     public static void cadastrarBeneficiarioPrimeiraVez() {
 
+        //Instancia a classe Scanner para pegar entrada de dados do usuário
         Scanner in = new Scanner(System.in);
 
+        //Cria as variáveis necessárias
         String nomeBeneficiario1;
 
+        //Recebe os dados do usuário e cadastra o primeiro beneficiário na lista
         Ferramentas.imprimeLinhaDupla();
         System.out.println("= Cadastro inicial de beneficiário                               =");
         Ferramentas.imprimeLinhaDupla();
@@ -105,41 +124,8 @@ public class Beneficiario {
         Ferramentas.imprimeEspacador();
         listaBeneficiarios.add(new Beneficiario(incrementoIdentificadorBeneficiario++,
                 nomeBeneficiario1));
-
         Ferramentas.imprimeLinha();
-        System.out.println(">>>Cadastro realizado com sucesso!<<<");
+        System.out.println("- Cadastro realizado com sucesso!                               - ");
         Ferramentas.imprimeLinha();
     }
-
-    public String getNomeBeneficiario() {
-        return nomeBeneficiario;
-    }
-
-    public void setNomeBeneficiario(String nomeBeneficiario) {
-        this.nomeBeneficiario = nomeBeneficiario;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null)
-            return false;
-
-        if (!(obj instanceof Beneficiario))
-            return false;
-
-        if (obj == this)
-            return true;
-
-        Beneficiario p = (Beneficiario) obj;
-
-        // Aqui você implementa como deve se feita a comparação.
-        // Verifica se os nomes dos produtos são iguais, ids e etc.
-
-        if (p.nomeBeneficiario == this.nomeBeneficiario) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }
